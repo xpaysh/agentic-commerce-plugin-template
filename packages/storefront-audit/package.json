@@ -1,0 +1,45 @@
+{
+  "name": "@xpaysh/storefront-audit",
+  "version": "0.1.0",
+  "description": "Conformance + readiness auditor for agentic-commerce storefronts. Checks /llms.txt, /.well-known/ucp, schema.org JSON-LD on PDPs, robots.txt AI-crawler allowlist, A2A agent-card, RFC 9728 OAuth resource metadata, and rejects fictitious well-known URIs. Library + CLI (ac-doctor). Pure-HTTP; zero auth needed; zero runtime deps.",
+  "keywords": [
+    "agentic-commerce",
+    "audit",
+    "conformance",
+    "ai-readiness",
+    "llms-txt",
+    "ucp",
+    "schema-org",
+    "robots-txt",
+    "cli",
+    "lint"
+  ],
+  "license": "Apache-2.0",
+  "author": "xpay✦ <hello@xpay.sh>",
+  "homepage": "https://github.com/xpaysh/agentic-commerce-plugin-template/tree/main/packages/storefront-audit#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xpaysh/agentic-commerce-plugin-template.git",
+    "directory": "packages/storefront-audit"
+  },
+  "bugs": {
+    "url": "https://github.com/xpaysh/agentic-commerce-plugin-template/issues"
+  },
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "bin": {
+    "ac-doctor": "./bin/ac-doctor.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
