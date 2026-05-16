@@ -1,0 +1,47 @@
+{
+  "name": "@xpaysh/storefront-audit-mcp",
+  "version": "0.1.0",
+  "description": "Model Context Protocol (MCP) server exposing @xpaysh/storefront-audit's audit() function as the audit_storefront tool. Stdio transport; runs anywhere via npx. Lets Claude Desktop / Cursor / any MCP-capable agent verify any storefront URL is agentic-commerce-ready on demand.",
+  "keywords": [
+    "agentic-commerce",
+    "mcp",
+    "model-context-protocol",
+    "storefront-audit",
+    "conformance",
+    "audit",
+    "claude",
+    "ai-tool"
+  ],
+  "license": "Apache-2.0",
+  "author": "xpay✦ <hello@xpay.sh>",
+  "homepage": "https://github.com/xpaysh/agentic-commerce-plugin-template/tree/main/packages/storefront-audit-mcp#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xpaysh/agentic-commerce-plugin-template.git",
+    "directory": "packages/storefront-audit-mcp"
+  },
+  "bugs": {
+    "url": "https://github.com/xpaysh/agentic-commerce-plugin-template/issues"
+  },
+  "main": "./src/server.js",
+  "types": "./src/server.d.ts",
+  "bin": {
+    "xpay-storefront-audit-mcp": "./bin/server.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "@xpaysh/storefront-audit": "^0.1.0"
+  }
+}

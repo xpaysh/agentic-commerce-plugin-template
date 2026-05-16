@@ -9,7 +9,8 @@
     "url": "git+https://github.com/xpaysh/agentic-commerce-plugin-template.git"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "services/*"
   ],
   "engines": {
     "node": ">=18"

@@ -1,0 +1,154 @@
+name: 'Storefront Audit'
+description: 'Discovery-layer conformance audit for agentic-commerce storefronts. Wraps @xpaysh/storefront-audit; fails the workflow on any check regression.'
+author: 'xpay✦'
+branding:
+  icon: 'check-circle'
+  color: 'blue'
+
+inputs:
+  url:
+    description: 'Storefront URL to audit (root, no trailing slash required).'
+    required: true
+  product-url:
+    description: 'Explicit PDP URL for the schema.org check. Skips sitemap auto-discovery.'
+    required: false
+    default: ''
+  checks:
+    description: 'Comma-separated subset of check IDs (e.g. discovery.llms_txt,discovery.ucp_profile). Default: all built-in checks.'
+    required: false
+    default: ''
+  fail-on:
+    description: 'When to fail the workflow. Allowed: any-fail | warn | never. Default any-fail (exit 1 if any fail-severity check failed).'
+    required: false
+    default: 'any-fail'
+  timeout:
+    description: 'Per-request timeout in milliseconds.'
+    required: false
+    default: '10000'
+  version:
+    description: 'Version of @xpaysh/storefront-audit to use. Default latest (resolves at runtime).'
+    required: false
+    default: 'latest'
+  node-version:
+    description: 'Node.js version for the audit run.'
+    required: false
+    default: '20'
+  report-path:
+    description: 'Path to write the JSON report. Default $RUNNER_TEMP/storefront-audit-report.json.'
+    required: false
+    default: ''
+
+outputs:
+  verdict:
+    description: 'Overall verdict — pass | warn | fail.'
+    value: ${{ steps.audit.outputs.verdict }}
+  pass-count:
+    description: 'Number of checks that passed.'
+    value: ${{ steps.audit.outputs.pass-count }}
+  warn-count:
+    description: 'Number of checks that warned.'
+    value: ${{ steps.audit.outputs.warn-count }}
+  fail-count:
+    description: 'Number of checks that failed.'
+    value: ${{ steps.audit.outputs.fail-count }}
+  skip-count:
+    description: 'Number of checks that were skipped.'
+    value: ${{ steps.audit.outputs.skip-count }}
+  report-path:
+    description: 'Filesystem path to the JSON report file.'
+    value: ${{ steps.audit.outputs.report-path }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Run @xpaysh/storefront-audit
+      id: audit
+      shell: bash
+      env:
+        URL: ${{ inputs.url }}
+        PRODUCT_URL: ${{ inputs.product-url }}
+        CHECKS: ${{ inputs.checks }}
+        FAIL_ON: ${{ inputs.fail-on }}
+        TIMEOUT: ${{ inputs.timeout }}
+        VERSION: ${{ inputs.version }}
+        REPORT_PATH_INPUT: ${{ inputs.report-path }}
+      run: |
+        set -euo pipefail
+
+        # Resolve report path
+        if [ -z "${REPORT_PATH_INPUT}" ]; then
+          REPORT_PATH="${RUNNER_TEMP:-/tmp}/storefront-audit-report.json"
+        else
+          REPORT_PATH="${REPORT_PATH_INPUT}"
+        fi
+        mkdir -p "$(dirname "${REPORT_PATH}")"
+
+        # Build CLI args
+        ARGS=( "${URL}" --json --timeout="${TIMEOUT}" )
+        if [ -n "${PRODUCT_URL}" ]; then ARGS+=( --product-url="${PRODUCT_URL}" ); fi
+        if [ -n "${CHECKS}" ]; then ARGS+=( --checks="${CHECKS}" ); fi
+
+        # Run audit (capture exit code separately — we set workflow failure via fail-on logic)
+        PACKAGE="@xpaysh/storefront-audit@${VERSION}"
+        echo "::group::Running ${PACKAGE} against ${URL}"
+        set +e
+        npx --yes "${PACKAGE}" "${ARGS[@]}" > "${REPORT_PATH}"
+        AUDIT_EXIT=$?
+        set -e
+        echo "::endgroup::"
+
+        if [ ! -s "${REPORT_PATH}" ]; then
+          echo "::error::storefront-audit produced no JSON output (exit ${AUDIT_EXIT})"
+          exit 1
+        fi
+
+        # Parse summary
+        VERDICT=$(node -e "console.log(JSON.parse(require('fs').readFileSync('${REPORT_PATH}','utf8')).summary.verdict)")
+        PASS=$(node   -e "console.log(JSON.parse(require('fs').readFileSync('${REPORT_PATH}','utf8')).summary.counts.pass)")
+        WARN=$(node   -e "console.log(JSON.parse(require('fs').readFileSync('${REPORT_PATH}','utf8')).summary.counts.warn)")
+        FAIL=$(node   -e "console.log(JSON.parse(require('fs').readFileSync('${REPORT_PATH}','utf8')).summary.counts.fail)")
+        SKIP=$(node   -e "console.log(JSON.parse(require('fs').readFileSync('${REPORT_PATH}','utf8')).summary.counts.skip)")
+
+        # Outputs
+        {
+          echo "verdict=${VERDICT}"
+          echo "pass-count=${PASS}"
+          echo "warn-count=${WARN}"
+          echo "fail-count=${FAIL}"
+          echo "skip-count=${SKIP}"
+          echo "report-path=${REPORT_PATH}"
+        } >> "${GITHUB_OUTPUT}"
+
+        # Step summary (Markdown)
+        {
+          echo "## Storefront audit — ${URL}"
+          echo ""
+          echo "**Verdict**: \`${VERDICT}\`   ·   pass ${PASS} · warn ${WARN} · fail ${FAIL} · skip ${SKIP}"
+          echo ""
+          node -e "const r=JSON.parse(require('fs').readFileSync('${REPORT_PATH}','utf8')); for (const c of r.results) { const g={pass:'✓',fail:'✗',warn:'!',skip:'·'}[c.status]||'?'; console.log('- '+g+' **'+c.name+'** — '+c.message); }"
+        } >> "${GITHUB_STEP_SUMMARY}"
+
+        # fail-on policy
+        case "${FAIL_ON}" in
+          never)
+            ;;
+          warn)
+            if [ "${VERDICT}" != "pass" ]; then echo "::error::Audit verdict '${VERDICT}' fails workflow (fail-on=warn)"; exit 1; fi
+            ;;
+          any-fail|*)
+            if [ "${FAIL}" != "0" ]; then echo "::error::Audit had ${FAIL} fail-severity check(s)"; exit 1; fi
+            ;;
+        esac
+
+    - name: Upload report artifact
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: storefront-audit-report
+        path: ${{ steps.audit.outputs.report-path }}
+        if-no-files-found: ignore

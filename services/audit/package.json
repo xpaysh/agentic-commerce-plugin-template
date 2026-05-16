@@ -1,0 +1,20 @@
+{
+  "name": "@xpaysh/audit-service",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Deployable hosted-audit service for audit.xpay.sh. Wraps @xpaysh/storefront-audit behind GET /api/v1/audit (JSON), /badge.svg (badge), / (HTML report). Generic Node handler — runs on Vercel, AWS Lambda (via Function URL or API Gateway), Cloudflare Workers (via shim), Express, or bare Node http.",
+  "license": "Apache-2.0",
+  "author": "xpay✦ <hello@xpay.sh>",
+  "main": "./src/handler.js",
+  "bin": {
+    "xpay-audit-service": "./src/server.js"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "vercel-build": "echo no build"
+  },
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "@xpaysh/storefront-audit": "^0.1.0"
+  }
+}
