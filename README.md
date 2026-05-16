@@ -42,10 +42,12 @@ Each protocol's surface is *documented in the merchant's `/llms.txt`*, never adv
 | WooCommerce | [`agentic-commerce-for-woocommerce`](https://github.com/xpaysh/agentic-commerce-for-woocommerce) | Live (GPLv2, v0.1.7+) |
 | commercetools | [`agentic-commerce-for-commercetools`](https://github.com/xpaysh/agentic-commerce-for-commercetools) | Scaffolded |
 | BigCommerce | [`agentic-commerce-for-bigcommerce`](https://github.com/xpaysh/agentic-commerce-for-bigcommerce) | Scaffolded |
-| Magento / Adobe Commerce | `agentic-commerce-for-magento` | Planned |
-| Shopify (App Store) | `agentic-commerce-for-shopify-app` | Planned |
-| Salesforce Commerce Cloud | `agentic-commerce-for-salesforce-commerce` | Planned |
-| PrestaShop, Saleor, OpenCart, Shopware, Spree, Sylius, nopCommerce, Drupal Commerce, Ecwid | Community (template + PR) | Planned |
+| Magento / Adobe Commerce | [`agentic-commerce-for-magento`](https://github.com/xpaysh/agentic-commerce-for-magento) | Scaffolded |
+| Shopify (App Store) | [`agentic-commerce-for-shopify-app`](https://github.com/xpaysh/agentic-commerce-for-shopify-app) | Scaffolded |
+| Salesforce Commerce Cloud | [`agentic-commerce-for-salesforce-commerce`](https://github.com/xpaysh/agentic-commerce-for-salesforce-commerce) | Scaffolded |
+| PrestaShop | [`agentic-commerce-for-prestashop`](https://github.com/xpaysh/agentic-commerce-for-prestashop) | Scaffolded |
+| Saleor | [`agentic-commerce-for-saleor`](https://github.com/xpaysh/agentic-commerce-for-saleor) | Scaffolded |
+| OpenCart, Shopware, Spree, Sylius, nopCommerce, Drupal Commerce, Ecwid | Community (template + PR) | Planned |
 
 Curated index of every plugin (xpay-built + vendor-built + community): **[awesome-agentic-commerce](https://github.com/xpaysh/awesome-agentic-commerce)**.
 
