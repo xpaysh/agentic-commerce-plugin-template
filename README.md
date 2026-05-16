@@ -41,7 +41,7 @@ Each protocol's surface is *documented in the merchant's `/llms.txt`*, never adv
 |---|---|---|
 | WooCommerce | [`agentic-commerce-for-woocommerce`](https://github.com/xpaysh/agentic-commerce-for-woocommerce) | Live (GPLv2, v0.1.7+) |
 | commercetools | [`agentic-commerce-for-commercetools`](https://github.com/xpaysh/agentic-commerce-for-commercetools) | Scaffolded |
-| BigCommerce | `agentic-commerce-for-bigcommerce` | Planned |
+| BigCommerce | [`agentic-commerce-for-bigcommerce`](https://github.com/xpaysh/agentic-commerce-for-bigcommerce) | Scaffolded |
 | Magento / Adobe Commerce | `agentic-commerce-for-magento` | Planned |
 | Shopify (App Store) | `agentic-commerce-for-shopify-app` | Planned |
 | Salesforce Commerce Cloud | `agentic-commerce-for-salesforce-commerce` | Planned |
