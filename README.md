@@ -40,8 +40,8 @@ Each protocol's surface is *documented in the merchant's `/llms.txt`*, never adv
 | Platform | Repo | Status |
 |---|---|---|
 | WooCommerce | [`agentic-commerce-for-woocommerce`](https://github.com/xpaysh/agentic-commerce-for-woocommerce) | Live (GPLv2, v0.1.7+) |
-| BigCommerce | `agentic-commerce-for-bigcommerce` | Phase B-1 |
-| commercetools | `agentic-commerce-for-commercetools` | Phase B-2 |
+| commercetools | [`agentic-commerce-for-commercetools`](https://github.com/xpaysh/agentic-commerce-for-commercetools) | Phase B-1 |
+| BigCommerce | `agentic-commerce-for-bigcommerce` | Phase B-2 |
 | Magento / Adobe Commerce | `agentic-commerce-for-magento` | Phase B-3 |
 | Shopify (App Store) | `agentic-commerce-for-shopify-app` | Phase B-4 |
 | Salesforce Commerce Cloud | `agentic-commerce-for-salesforce-commerce` | Phase B-5 |
