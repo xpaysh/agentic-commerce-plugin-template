@@ -1,6 +1,6 @@
 {
   "name": "@xpaysh/ucp-schemas",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Universal Commerce Protocol (UCP) schemas + business-profile generator. Emits the JSON body for /.well-known/ucp per Google's UCP profile guide and ucp.dev spec rev 2026-04-08. Consumed by xpaysh/agentic-commerce-for-* plugins.",
   "keywords": [
     "agentic-commerce",

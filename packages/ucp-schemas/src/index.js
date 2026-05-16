@@ -33,7 +33,28 @@ const UCP_PROFILE_PATH = '/.well-known/ucp';
 
 /**
  * Default capabilities the xpay plugin family advertises out of the box.
- * Each entry mirrors the example in Google's UCP profile guide.
+ *
+ * Covers the full set of UCP core capabilities documented at
+ * https://ucp.dev/documentation/core-concepts/#business:
+ *
+ *   - dev.ucp.shopping.checkout         (initiates and completes purchase sessions)
+ *   - dev.ucp.shopping.cart             (pre-checkout cart management)
+ *   - dev.ucp.shopping.catalog.search   (search across a business catalog)
+ *   - dev.ucp.shopping.catalog.lookup   (retrieve a specific product by ID)
+ *   - dev.ucp.shopping.order            (order lifecycle events)
+ *   - dev.ucp.common.identity_linking   (OAuth-based account linking)
+ *
+ * Plus two extensions that compose on top of checkout:
+ *
+ *   - dev.ucp.shopping.fulfillment      (shipping options + address validation)
+ *   - dev.ucp.shopping.discount         (price-adjustment rules)
+ *
+ * Custom capabilities (anything outside dev.ucp.*) MUST use the vendor's own
+ * reverse-domain namespace per UCP namespace-governance rule. xpay's domain
+ * is xpay.sh, so xpay-issued capabilities use the `sh.xpay.*` prefix (e.g.
+ * `sh.xpay.facilitator.x402` for the stablecoin rail xpay operates). xpay
+ * does NOT own xpay.ai or xpay.dev (both parked for sale on Spaceship as of
+ * 2026-05-16) so `ai.xpay.*` and `dev.xpay.*` MUST NOT be used.
  */
 const DEFAULT_CAPABILITIES = Object.freeze({
   'dev.ucp.shopping.checkout': [
@@ -41,6 +62,41 @@ const DEFAULT_CAPABILITIES = Object.freeze({
       version: SPEC_VERSION,
       spec: 'https://ucp.dev/specification/checkout',
       schema: `https://ucp.dev/${SPEC_VERSION}/schemas/shopping/checkout.json`,
+    },
+  ],
+  'dev.ucp.shopping.cart': [
+    {
+      version: SPEC_VERSION,
+      spec: 'https://ucp.dev/specification/cart',
+      schema: `https://ucp.dev/${SPEC_VERSION}/schemas/shopping/cart.json`,
+    },
+  ],
+  'dev.ucp.shopping.catalog.search': [
+    {
+      version: SPEC_VERSION,
+      spec: 'https://ucp.dev/specification/catalog/search',
+      schema: `https://ucp.dev/${SPEC_VERSION}/schemas/shopping/catalog/search.json`,
+    },
+  ],
+  'dev.ucp.shopping.catalog.lookup': [
+    {
+      version: SPEC_VERSION,
+      spec: 'https://ucp.dev/specification/catalog/lookup',
+      schema: `https://ucp.dev/${SPEC_VERSION}/schemas/shopping/catalog/lookup.json`,
+    },
+  ],
+  'dev.ucp.shopping.order': [
+    {
+      version: SPEC_VERSION,
+      spec: 'https://ucp.dev/latest/specification/order',
+      schema: `https://ucp.dev/${SPEC_VERSION}/schemas/shopping/order.json`,
+    },
+  ],
+  'dev.ucp.common.identity_linking': [
+    {
+      version: SPEC_VERSION,
+      spec: 'https://ucp.dev/specification/identity-linking',
+      schema: `https://ucp.dev/${SPEC_VERSION}/schemas/common/identity_linking.json`,
     },
   ],
   'dev.ucp.shopping.fulfillment': [
@@ -59,14 +115,19 @@ const DEFAULT_CAPABILITIES = Object.freeze({
       extends: 'dev.ucp.shopping.checkout',
     },
   ],
-  'dev.ucp.shopping.order': [
-    {
-      version: SPEC_VERSION,
-      spec: 'https://ucp.dev/latest/specification/order',
-      schema: `https://ucp.dev/${SPEC_VERSION}/schemas/shopping/order.json`,
-    },
-  ],
 });
+
+/**
+ * The reverse-domain namespace prefix for xpay-issued custom capabilities.
+ * Use this when extending the UCP profile with xpay-specific entries (e.g.
+ * payment handlers, facilitator pointers, audit endpoints). The full
+ * capability id is constructed as `${XPAY_NAMESPACE}.<service>.<capability>`.
+ *
+ * Derivation: reverse-domain of xpay.sh → 'sh.xpay'. Per UCP namespace-
+ * governance rule, vendors MUST use their own reverse-domain namespace; the
+ * `dev.ucp.*` namespace is reserved for UCP-governing-body capabilities.
+ */
+const XPAY_NAMESPACE = 'sh.xpay';
 
 /**
  * Generate a UCP business profile body for `/.well-known/ucp`.
@@ -132,6 +193,7 @@ module.exports = {
   SPEC_OPENAPI_PATH,
   SPEC_SCHEMAS_PATH,
   UCP_PROFILE_PATH,
+  XPAY_NAMESPACE,
   DEFAULT_CAPABILITIES,
   generateUcpProfile,
   schemas,

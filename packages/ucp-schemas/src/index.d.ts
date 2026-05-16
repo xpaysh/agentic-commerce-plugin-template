@@ -14,6 +14,13 @@ export declare const SPEC_SCHEMAS_PATH: string;
  */
 export declare const UCP_PROFILE_PATH: '/.well-known/ucp';
 
+/**
+ * Reverse-domain namespace prefix for xpay-issued custom capabilities,
+ * derived from xpay.sh. Use as the prefix when extending the UCP profile
+ * with xpay-specific entries.
+ */
+export declare const XPAY_NAMESPACE: 'sh.xpay';
+
 export interface UcpCapability {
   version: string;
   spec: string;
