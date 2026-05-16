@@ -1,0 +1,39 @@
+{
+  "name": "@xpaysh/adapter-contract",
+  "version": "0.1.0",
+  "description": "Platform-adapter TypeScript interface every agentic-commerce-for-* plugin implements. One contract, N adapters: WooCommerce, commercetools, BigCommerce, Magento, Shopify, Salesforce Commerce, PrestaShop, Saleor. Protocol-side packages (discovery, ucp-schemas, cart-deeplinks, storefront-audit) call this contract; platform plugins implement it against native APIs. Zero deps.",
+  "keywords": [
+    "agentic-commerce",
+    "adapter",
+    "contract",
+    "interface",
+    "platform-adapter",
+    "ucp",
+    "acp",
+    "ap2"
+  ],
+  "license": "Apache-2.0",
+  "author": "xpay✦ <hello@xpay.sh>",
+  "homepage": "https://github.com/xpaysh/agentic-commerce-plugin-template/tree/main/packages/adapter-contract#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xpaysh/agentic-commerce-plugin-template.git",
+    "directory": "packages/adapter-contract"
+  },
+  "bugs": {
+    "url": "https://github.com/xpaysh/agentic-commerce-plugin-template/issues"
+  },
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
