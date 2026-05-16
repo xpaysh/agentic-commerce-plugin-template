@@ -40,12 +40,12 @@ Each protocol's surface is *documented in the merchant's `/llms.txt`*, never adv
 | Platform | Repo | Status |
 |---|---|---|
 | WooCommerce | [`agentic-commerce-for-woocommerce`](https://github.com/xpaysh/agentic-commerce-for-woocommerce) | Live (GPLv2, v0.1.7+) |
-| commercetools | [`agentic-commerce-for-commercetools`](https://github.com/xpaysh/agentic-commerce-for-commercetools) | Phase B-1 |
-| BigCommerce | `agentic-commerce-for-bigcommerce` | Phase B-2 |
-| Magento / Adobe Commerce | `agentic-commerce-for-magento` | Phase B-3 |
-| Shopify (App Store) | `agentic-commerce-for-shopify-app` | Phase B-4 |
-| Salesforce Commerce Cloud | `agentic-commerce-for-salesforce-commerce` | Phase B-5 |
-| PrestaShop, Saleor, OpenCart, Shopware, Spree, Sylius, nopCommerce, Drupal Commerce, Ecwid | Phase C (template + community PR) | Planned |
+| commercetools | [`agentic-commerce-for-commercetools`](https://github.com/xpaysh/agentic-commerce-for-commercetools) | Scaffolded |
+| BigCommerce | `agentic-commerce-for-bigcommerce` | Planned |
+| Magento / Adobe Commerce | `agentic-commerce-for-magento` | Planned |
+| Shopify (App Store) | `agentic-commerce-for-shopify-app` | Planned |
+| Salesforce Commerce Cloud | `agentic-commerce-for-salesforce-commerce` | Planned |
+| PrestaShop, Saleor, OpenCart, Shopware, Spree, Sylius, nopCommerce, Drupal Commerce, Ecwid | Community (template + PR) | Planned |
 
 Curated index of every plugin (xpay-built + vendor-built + community): **[awesome-agentic-commerce](https://github.com/xpaysh/awesome-agentic-commerce)**.
 
@@ -56,7 +56,7 @@ Curated index of every plugin (xpay-built + vendor-built + community): **[awesom
 
 ## Status
 
-This repo is currently a scaffold. The reference implementation is being extracted from `agentic-commerce-for-woocommerce` (v0.1.7+) in Phase A; expect the first usable template release alongside `agentic-commerce-for-bigcommerce` (Phase B-1).
+This repo is currently a scaffold. The reference implementation is being extracted from `agentic-commerce-for-woocommerce` (v0.1.7+); expect the first usable template release alongside `agentic-commerce-for-commercetools`.
 
 ## License
 
