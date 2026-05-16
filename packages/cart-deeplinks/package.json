@@ -1,0 +1,38 @@
+{
+  "name": "@xpaysh/cart-deeplinks",
+  "version": "0.1.0",
+  "description": "HS256-signed cart-handoff JWT (sign + verify) for the agentic-commerce-for-* plugin family. Interoperable bit-for-bit with the xpaysh/agentic-commerce-for-woocommerce PHP plugin v0.2+ and the xpay backend (Xpay_Client::verify_jwt). Zero deps; Node crypto only.",
+  "keywords": [
+    "agentic-commerce",
+    "cart-deeplink",
+    "jwt",
+    "hs256",
+    "ucp",
+    "acp",
+    "ai-shopping"
+  ],
+  "license": "Apache-2.0",
+  "author": "xpay✦ <hello@xpay.sh>",
+  "homepage": "https://github.com/xpaysh/agentic-commerce-plugin-template/tree/main/packages/cart-deeplinks#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xpaysh/agentic-commerce-plugin-template.git",
+    "directory": "packages/cart-deeplinks"
+  },
+  "bugs": {
+    "url": "https://github.com/xpaysh/agentic-commerce-plugin-template/issues"
+  },
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
