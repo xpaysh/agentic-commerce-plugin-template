@@ -1,0 +1,40 @@
+{
+  "name": "@xpaysh/ucp-schemas",
+  "version": "0.0.1",
+  "description": "JSON Schemas for the Universal Commerce Protocol (UCP), pinned to upstream dated revisions. Consumed by xpaysh/agentic-commerce-for-* plugins. Vendor-neutral; tracks Universal-Commerce-Protocol/ucp.",
+  "keywords": [
+    "agentic-commerce",
+    "ucp",
+    "universal-commerce-protocol",
+    "json-schema",
+    "openapi",
+    "rfc-9421",
+    "ai-agents",
+    "checkout"
+  ],
+  "license": "Apache-2.0",
+  "author": "xpay✦ <hello@xpay.sh>",
+  "homepage": "https://github.com/xpaysh/agentic-commerce-plugin-template/tree/main/packages/ucp-schemas#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xpaysh/agentic-commerce-plugin-template.git",
+    "directory": "packages/ucp-schemas"
+  },
+  "bugs": {
+    "url": "https://github.com/xpaysh/agentic-commerce-plugin-template/issues"
+  },
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "files": [
+    "src",
+    "schemas",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "name": "@xpaysh/acp-schemas",
+  "version": "0.0.1",
+  "description": "JSON Schemas for the Agentic Commerce Protocol (ACP), pinned to upstream spec dates. Consumed by xpaysh/agentic-commerce-for-* plugins. Vendor-neutral; tracks the canonical spec at agentic-commerce-protocol/agentic-commerce-protocol.",
+  "keywords": [
+    "agentic-commerce",
+    "acp",
+    "agentic-commerce-protocol",
+    "json-schema",
+    "openapi",
+    "ai-agents",
+    "checkout"
+  ],
+  "license": "Apache-2.0",
+  "author": "xpay✦ <hello@xpay.sh>",
+  "homepage": "https://github.com/xpaysh/agentic-commerce-plugin-template/tree/main/packages/acp-schemas#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xpaysh/agentic-commerce-plugin-template.git",
+    "directory": "packages/acp-schemas"
+  },
+  "bugs": {
+    "url": "https://github.com/xpaysh/agentic-commerce-plugin-template/issues"
+  },
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "files": [
+    "src",
+    "schemas",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

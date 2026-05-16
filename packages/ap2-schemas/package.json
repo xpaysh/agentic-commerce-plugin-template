@@ -1,0 +1,39 @@
+{
+  "name": "@xpaysh/ap2-schemas",
+  "version": "0.0.1",
+  "description": "JSON Schemas for the Agent Payments Protocol (AP2), pinned to upstream spec versions. Consumed by xpaysh/agentic-commerce-for-* plugins. Vendor-neutral; tracks google-agentic-commerce/AP2.",
+  "keywords": [
+    "agentic-commerce",
+    "ap2",
+    "agent-payments-protocol",
+    "json-schema",
+    "mandates",
+    "verifiable-credentials",
+    "ai-agents"
+  ],
+  "license": "Apache-2.0",
+  "author": "xpay✦ <hello@xpay.sh>",
+  "homepage": "https://github.com/xpaysh/agentic-commerce-plugin-template/tree/main/packages/ap2-schemas#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xpaysh/agentic-commerce-plugin-template.git",
+    "directory": "packages/ap2-schemas"
+  },
+  "bugs": {
+    "url": "https://github.com/xpaysh/agentic-commerce-plugin-template/issues"
+  },
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "files": [
+    "src",
+    "schemas",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "agentic-commerce-plugin-template",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Monorepo for the agentic-commerce-for-<platform> plugin template + shared @xpaysh/*-schemas packages.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xpaysh/agentic-commerce-plugin-template.git"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=20"
+  }
+}

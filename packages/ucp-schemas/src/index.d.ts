@@ -1,0 +1,24 @@
+/**
+ * @xpaysh/ucp-schemas — JSON Schemas for the Universal Commerce Protocol.
+ *
+ * v0.0.x reserves the npm namespace and establishes the package shape.
+ * Schema content lands in v0.1.0 (pinned to SPEC_VERSION below) from
+ * Universal-Commerce-Protocol/ucp.
+ */
+
+export declare const SPEC_VERSION: '2026-04-08';
+export declare const SPEC_URL: 'https://github.com/Universal-Commerce-Protocol/ucp';
+export declare const SPEC_OPENAPI_PATH: string;
+export declare const SPEC_SCHEMAS_PATH: string;
+
+/**
+ * Placeholder schema registry. Keyed by upstream schema name.
+ * Empty in v0.0.x; populated in v0.1.0+.
+ */
+export declare const schemas: Readonly<Record<string, object>>;
+
+/**
+ * Resolve a JSON Schema by name. Returns `undefined` if the schema isn't
+ * registered (always undefined in v0.0.x).
+ */
+export declare function getSchema(name: string): object | undefined;
