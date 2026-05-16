@@ -1,0 +1,42 @@
+{
+  "name": "@xpaysh/discovery",
+  "version": "0.1.0",
+  "description": "Pure-function generators for the real agent-readable discovery surface: /llms.txt (llmstxt.org), schema.org JSON-LD (Product, ItemList), robots.txt allowlist for real AI crawlers, /.well-known/agent-card.json (A2A 1.0), /.well-known/oauth-protected-resource (RFC 9728). Zero deps. Consumed by xpaysh/agentic-commerce-for-* plugins.",
+  "keywords": [
+    "agentic-commerce",
+    "discovery",
+    "llms-txt",
+    "schema-org",
+    "json-ld",
+    "robots-txt",
+    "a2a",
+    "agent-card",
+    "oauth-protected-resource",
+    "rfc-9728",
+    "ai-agents"
+  ],
+  "license": "Apache-2.0",
+  "author": "xpay✦ <hello@xpay.sh>",
+  "homepage": "https://github.com/xpaysh/agentic-commerce-plugin-template/tree/main/packages/discovery#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xpaysh/agentic-commerce-plugin-template.git",
+    "directory": "packages/discovery"
+  },
+  "bugs": {
+    "url": "https://github.com/xpaysh/agentic-commerce-plugin-template/issues"
+  },
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

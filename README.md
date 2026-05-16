@@ -30,7 +30,8 @@ Each protocol's surface is *documented in the merchant's `/llms.txt`*, never adv
 ## What this template provides
 
 - **TypeScript core + per-platform adapter shape** — `core/` is platform-agnostic protocol/discovery logic; `adapter/` is the thin per-platform shim.
-- **Schema dependencies** — `@xpaysh/acp-schemas`, `@xpaysh/ucp-schemas`, `@xpaysh/ap2-schemas` (pinned by spec date).
+- **Schema dependencies** — [`@xpaysh/acp-schemas`](https://www.npmjs.com/package/@xpaysh/acp-schemas), [`@xpaysh/ucp-schemas`](https://www.npmjs.com/package/@xpaysh/ucp-schemas) (ships `generateUcpProfile()` + `UCP_PROFILE_PATH`), [`@xpaysh/ap2-schemas`](https://www.npmjs.com/package/@xpaysh/ap2-schemas) (pinned by spec date).
+- **Discovery generators** — [`@xpaysh/discovery`](https://www.npmjs.com/package/@xpaysh/discovery) — pure-function generators for `/llms.txt`, schema.org JSON-LD (Product, ItemList), `robots.txt` AI-crawler allowlist, A2A `/.well-known/agent-card.json`, RFC 9728 `/.well-known/oauth-protected-resource`. Ported from `agentic-commerce-for-woocommerce` v0.2.0. Zero deps.
 - **CI linter — `lint-no-fictitious-wellknowns`** — fails the build if a plugin attempts to emit any file from the project-wide "do not emit" list (`/.well-known/agentic-commerce.json`, `/.well-known/ucp.json` *— the `.json` variant; `/.well-known/ucp` with no extension IS real and required by Google's UCP spec*, `/.well-known/acp.json`, `/.well-known/ap2.json`, `/.well-known/mcp.json`, `/.well-known/ai-plugin.json`, `/agents.txt`, `/ai.txt`). Catches fictitious-standard regression in PR review, not in production.
 - **Two-mode operation** — standalone (no xpay backend) vs commercial (connect to xpay backend for catalog hosting + analytics).
 - **Conformance fixtures** — golden-test JSON payloads for ACP/UCP/AP2 round-trips, reused across platform plugins.
