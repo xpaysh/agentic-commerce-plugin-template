@@ -30,7 +30,7 @@ Each protocol's surface is *documented in the merchant's `/llms.txt`*, never adv
 ## What this template provides
 
 - **TypeScript core + per-platform adapter shape** — `core/` is platform-agnostic protocol/discovery logic; `adapter/` is the thin per-platform shim.
-- **Schema dependencies** — `@xpay/acp-schemas`, `@xpay/ucp-schemas`, `@xpay/ap2-schemas` (pinned by spec date).
+- **Schema dependencies** — `@xpaysh/acp-schemas`, `@xpaysh/ucp-schemas`, `@xpaysh/ap2-schemas` (pinned by spec date).
 - **CI linter — `lint-no-fictitious-wellknowns`** — fails the build if a plugin attempts to emit any file from the project-wide "do not emit" list (`/.well-known/agentic-commerce.json`, `/.well-known/ucp.json`, `/.well-known/acp.json`, `/.well-known/ap2.json`, `/.well-known/mcp.json`, `/.well-known/ai-plugin.json`, `/agents.txt`, `/ai.txt`). Catches fictitious-standard regression in PR review, not in production.
 - **Two-mode operation** — standalone (no xpay backend) vs commercial (connect to xpay backend for catalog hosting + analytics).
 - **Conformance fixtures** — golden-test JSON payloads for ACP/UCP/AP2 round-trips, reused across platform plugins.
