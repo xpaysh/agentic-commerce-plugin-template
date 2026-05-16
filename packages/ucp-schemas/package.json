@@ -1,6 +1,6 @@
 {
   "name": "@xpaysh/ucp-schemas",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "JSON Schemas for the Universal Commerce Protocol (UCP), pinned to upstream dated revisions. Consumed by xpaysh/agentic-commerce-for-* plugins. Vendor-neutral; tracks Universal-Commerce-Protocol/ucp.",
   "keywords": [
     "agentic-commerce",
@@ -35,6 +35,6 @@
     "access": "public"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=18"
   }
 }

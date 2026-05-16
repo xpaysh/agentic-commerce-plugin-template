@@ -1,6 +1,6 @@
 {
   "name": "@xpaysh/acp-schemas",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "JSON Schemas for the Agentic Commerce Protocol (ACP), pinned to upstream spec dates. Consumed by xpaysh/agentic-commerce-for-* plugins. Vendor-neutral; tracks the canonical spec at agentic-commerce-protocol/agentic-commerce-protocol.",
   "keywords": [
     "agentic-commerce",
@@ -34,6 +34,6 @@
     "access": "public"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=18"
   }
 }

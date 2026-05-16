@@ -1,6 +1,6 @@
 {
   "name": "@xpaysh/ap2-schemas",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "JSON Schemas for the Agent Payments Protocol (AP2), pinned to upstream spec versions. Consumed by xpaysh/agentic-commerce-for-* plugins. Vendor-neutral; tracks google-agentic-commerce/AP2.",
   "keywords": [
     "agentic-commerce",
@@ -34,6 +34,6 @@
     "access": "public"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=18"
   }
 }
