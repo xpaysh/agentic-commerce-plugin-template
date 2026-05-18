@@ -1,7 +1,7 @@
 {
   "name": "@xpaysh/acp-schemas",
-  "version": "0.0.2",
-  "description": "JSON Schemas for the Agentic Commerce Protocol (ACP), pinned to upstream spec dates. Consumed by xpaysh/agentic-commerce-for-* plugins. Vendor-neutral; tracks the canonical spec at agentic-commerce-protocol/agentic-commerce-protocol.",
+  "version": "0.1.0",
+  "description": "JSON Schemas for the Agentic Commerce Protocol (ACP), vendored from the upstream Apache-2.0 spec at agentic-commerce-protocol/agentic-commerce-protocol (rev 2026-04-17). Bundles: agentic_checkout, cart, delegate_authentication, delegate_payment, discount, extension, feed. Zero deps. Consumed by xpaysh/agentic-commerce-for-* plugins.",
   "keywords": [
     "agentic-commerce",
     "acp",
