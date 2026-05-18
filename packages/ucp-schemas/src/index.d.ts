@@ -3,10 +3,13 @@
  * helper. Tracks Universal-Commerce-Protocol/ucp at SPEC_VERSION.
  */
 
-export declare const SPEC_VERSION: '2026-04-08';
+export declare const SPEC_VERSION: 'draft';
+export declare const WIRE_VERSION: string;
+export declare const SPEC_SOURCE_COMMIT: string;
 export declare const SPEC_URL: 'https://github.com/Universal-Commerce-Protocol/ucp';
 export declare const SPEC_OPENAPI_PATH: string;
 export declare const SPEC_SCHEMAS_PATH: string;
+export declare const SCHEMAS_DIR: string;
 
 /**
  * The canonical well-known URI for the UCP business profile. **No file
@@ -84,8 +87,31 @@ export declare function generateUcpProfile(opts: GenerateUcpProfileOptions): Ucp
 /** Default capability map advertised by the xpay plugin family. */
 export declare const DEFAULT_CAPABILITIES: Readonly<Record<string, UcpCapability[]>>;
 
-/** Placeholder schema registry. Populated in later 0.1.x releases. */
+/**
+ * Schema registry. Keys mirror the upstream on-disk layout, e.g.
+ * `shopping/checkout`, `shopping/types/item`, `common/types/amount`,
+ * `discovery/profile`, `services/shopping/rest`.
+ */
 export declare const schemas: Readonly<Record<string, object>>;
 
-/** Resolve a JSON Schema by name. */
-export declare function getSchema(name: string): object | undefined;
+/** Resolve a schema by registry key. */
+export declare function getSchema(key: string): object | undefined;
+
+/** Resolve a specific $defs entry inside a registered schema. */
+export declare function getDef(key: string, def: string): object | undefined;
+
+/** List every registered schema key. */
+export declare function listSchemas(): string[];
+
+/** List every $defs name across every registered schema. */
+export declare function listDefs(): Array<{ key: string; def: string }>;
+
+/**
+ * Register every UCP schema with an Ajv (or compatible) instance under
+ * all the URIs other schemas might use to $ref it. Returns the count of
+ * unique URIs registered.
+ */
+export declare function registerForValidation(ajv: {
+  addSchema: (schema: object, id: string) => unknown;
+  getSchema: (id: string) => unknown;
+}): number;
