@@ -20,9 +20,18 @@ All 9 ACP fixtures validate against the canonical JSON Schemas vendored in `@xpa
 
 > Note: upstream OpenAPI `examples:` blocks in `agentic-commerce-protocol` are inconsistent with the canonical JSON Schemas (e.g. they show `totals` as an object instead of an array; `Order` examples omit required `checkout_session_id` and `permalink_url`). These fixtures align to the **JSON Schemas**, which the spec maintainers treat as authoritative.
 
-### UCP
+### UCP — `SPEC_VERSION = 'draft'`, wire-version `2026-05-18`
 
-Placeholder. Lands alongside `@xpaysh/ucp-schemas@0.2.0` (real-schema lift from `Universal-Commerce-Protocol/ucp/source/schemas/*`).
+| Fixture | Target schema |
+|---|---|
+| `discovery.profile.golden.json` | `https://ucp.dev/schemas/discovery/profile.json` (business profile served at `/.well-known/ucp`) |
+| `shopping.create-checkout.response.json` | `https://ucp.dev/schemas/shopping/checkout.json` (201 Created — authoritative state) |
+| `shopping.error.out-of-stock.response.json` | `https://ucp.dev/schemas/common/types/error_response.json` (unrecoverable error envelope) |
+| `shopping.create-checkout.request.json` | *skipped — see below* |
+
+3 of 4 UCP fixtures validate against the canonical JSON Schemas in `@xpaysh/ucp-schemas@0.2.0`.
+
+> Note: the upstream UCP checkout schema uses a single schema for BOTH wire directions (request and response), with `ucp_request: omit|optional|required` annotations indicating per-direction field requirements. Generic JSON Schema validators can't honor those annotations — so request fixtures intentionally have no `validates_against`. A `ucp_request`-aware validator that strips `ucp_request:omit` fields from `required` before validation is a future enhancement.
 
 ### AP2
 

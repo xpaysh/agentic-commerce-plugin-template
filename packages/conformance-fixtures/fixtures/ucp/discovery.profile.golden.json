@@ -1,0 +1,97 @@
+{
+  "_meta": {
+    "protocol": "ucp",
+    "spec_version": "draft",
+    "wire_version": "2026-05-18",
+    "operation": "discovery.profile",
+    "method": "GET",
+    "path": "/.well-known/ucp",
+    "summary": "Business discovery profile served at /.well-known/ucp (no extension)",
+    "source": "@xpaysh/ucp-schemas generateUcpProfile() output for an example merchant",
+    "validates_against": "https://ucp.dev/schemas/discovery/profile.json"
+  },
+  "headers": {
+    "Content-Type": "application/json",
+    "Cache-Control": "max-age=300, public"
+  },
+  "body": {
+    "ucp": {
+      "version": "2026-05-18",
+      "services": {
+        "dev.ucp.shopping": [
+          {
+            "version": "2026-05-18",
+            "spec": "https://ucp.dev/specification/overview",
+            "transport": "rest",
+            "endpoint": "https://agent-commerce.xpay.sh/ucp/v1/example-merchant",
+            "schema": "https://ucp.dev/schemas/services/shopping/rest.openapi.json"
+          }
+        ]
+      },
+      "capabilities": {
+        "dev.ucp.shopping.checkout": [
+          {
+            "version": "2026-05-18",
+            "spec": "https://ucp.dev/specification/checkout",
+            "schema": "https://ucp.dev/schemas/shopping/checkout.json"
+          }
+        ],
+        "dev.ucp.shopping.catalog.lookup": [
+          {
+            "version": "2026-05-18",
+            "spec": "https://ucp.dev/specification/catalog",
+            "schema": "https://ucp.dev/schemas/shopping/catalog_lookup.json"
+          }
+        ],
+        "dev.ucp.shopping.catalog.search": [
+          {
+            "version": "2026-05-18",
+            "spec": "https://ucp.dev/specification/catalog",
+            "schema": "https://ucp.dev/schemas/shopping/catalog_search.json"
+          }
+        ],
+        "dev.ucp.shopping.cart": [
+          {
+            "version": "2026-05-18",
+            "spec": "https://ucp.dev/specification/cart",
+            "schema": "https://ucp.dev/schemas/shopping/cart.json",
+            "extends": "dev.ucp.shopping.checkout"
+          }
+        ],
+        "dev.ucp.shopping.order": [
+          {
+            "version": "2026-05-18",
+            "spec": "https://ucp.dev/specification/order",
+            "schema": "https://ucp.dev/schemas/shopping/order.json",
+            "extends": "dev.ucp.shopping.checkout"
+          }
+        ],
+        "dev.ucp.shopping.fulfillment": [
+          {
+            "version": "2026-05-18",
+            "spec": "https://ucp.dev/specification/fulfillment",
+            "schema": "https://ucp.dev/schemas/shopping/fulfillment.json",
+            "extends": "dev.ucp.shopping.checkout"
+          }
+        ],
+        "dev.ucp.shopping.discount": [
+          {
+            "version": "2026-05-18",
+            "spec": "https://ucp.dev/specification/discount",
+            "schema": "https://ucp.dev/schemas/shopping/discount.json",
+            "extends": "dev.ucp.shopping.checkout"
+          }
+        ]
+      },
+      "payment_handlers": {}
+    },
+    "signing_keys": [
+      {
+        "kid": "ed25519-1",
+        "kty": "OKP",
+        "crv": "Ed25519",
+        "x": "AAAAEXAMPLEEd25519PublicKeyBase64UrlEncodedValueAAAA"
+      }
+    ]
+  }
+}

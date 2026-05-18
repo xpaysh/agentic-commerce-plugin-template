@@ -1,7 +1,7 @@
 {
   "name": "@xpaysh/conformance-fixtures",
-  "version": "0.1.0",
-  "description": "Golden request/response payloads for ACP, UCP, and AP2. Sibling agentic-commerce-for-* plugins run these in CI to verify their adapter implementations conform to the protocols.",
+  "version": "0.2.0",
+  "description": "Golden request/response payloads for ACP and UCP (AP2 placeholder — upstream draft). 9 ACP fixtures covering create/update/complete + error envelopes. 4 UCP fixtures covering the discovery profile + shopping create-checkout happy-path + out-of-stock error. Every fixture cross-validates against the canonical JSON Schemas via npm run validate. Sibling agentic-commerce-for-* plugins run these in CI.",
   "keywords": [
     "agentic-commerce",
     "conformance",
@@ -29,10 +29,12 @@
   },
   "peerDependencies": {
     "@xpaysh/acp-schemas": ">=0.1.0",
+    "@xpaysh/ucp-schemas": ">=0.2.0",
     "ajv": ">=8"
   },
   "peerDependenciesMeta": {
     "@xpaysh/acp-schemas": { "optional": true },
+    "@xpaysh/ucp-schemas": { "optional": true },
     "ajv": { "optional": true }
   },
   "files": [

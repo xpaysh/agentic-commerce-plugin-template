@@ -1,0 +1,27 @@
+{
+  "_meta": {
+    "protocol": "ucp",
+    "spec_version": "draft",
+    "wire_version": "2026-05-18",
+    "status": 422,
+    "summary": "422 — line item out of stock; unrecoverable",
+    "source": "schemas/common/types/error_response.json + message_error.json",
+    "validates_against": "https://ucp.dev/schemas/common/types/error_response.json"
+  },
+  "headers": { "Content-Type": "application/json" },
+  "body": {
+    "ucp": {
+      "version": "2026-05-18",
+      "status": "error"
+    },
+    "messages": [
+      {
+        "type": "error",
+        "code": "out_of_stock",
+        "path": "$.line_items[0].item",
+        "content": "Blue T-Shirt (M) is currently out of stock.",
+        "severity": "unrecoverable"
+      }
+    ]
+  }
+}

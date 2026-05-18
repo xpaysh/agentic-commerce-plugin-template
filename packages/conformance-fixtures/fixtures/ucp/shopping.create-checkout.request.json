@@ -1,0 +1,41 @@
+{
+  "_meta": {
+    "protocol": "ucp",
+    "spec_version": "draft",
+    "wire_version": "2026-05-18",
+    "operation": "create_checkout",
+    "method": "POST",
+    "path": "/checkout-sessions",
+    "service_contract": "https://ucp.dev/schemas/services/shopping/rest.openapi.json#/paths/~1checkout-sessions/post",
+    "summary": "Create a new checkout session — minimal valid payload (ucp_request: create)",
+    "source": "schemas/shopping/checkout.json with ucp_request: create annotations honored",
+    "validates_against_note": "The upstream UCP checkout schema uses a single schema for BOTH request and response wire directions, with `ucp_request: omit|optional|required` annotations indicating per-direction field requirements. JSON Schema validators cannot honor those annotations natively, so this request fixture intentionally has no `validates_against` — fields that the schema marks `required` (id, status, totals, links) are server-emitted (ucp_request: omit) and therefore absent from a valid create-checkout request. A ucp-request-aware validator that strips ucp_request:omit fields from `required` before validation is a future enhancement."
+  },
+  "headers": {
+    "Authorization": "Bearer api_key_123",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Accept-Language": "en-US",
+    "User-Agent": "AgentClient/1.0 (xpay-ucp-test)",
+    "UCP-Agent": "agent.example/1.0",
+    "Idempotency-Key": "550e8400-e29b-41d4-a716-446655441001",
+    "Request-Id": "req_ucp_001",
+    "Signature": "sig1=:MEUCIQDExampleSignatureBytes:",
+    "Signature-Input": "sig1=(\"@method\" \"@target-uri\" \"content-digest\" \"idempotency-key\");created=1747566000;keyid=\"ed25519-1\";alg=\"ed25519\"",
+    "Content-Digest": "sha-256=:X48E9qOokqqrvdts8nOJRJN3OWDUoyWxBf7kbu9DBPE=:"
+  },
+  "body": {
+    "ucp": { "version": "2026-05-18" },
+    "currency": "USD",
+    "line_items": [
+      {
+        "item": {
+          "id": "sku_blue_tshirt_m",
+          "title": "Blue T-Shirt (M)",
+          "price": { "amount": 2500, "currency": "USD" }
+        },
+        "quantity": 2
+      }
+    ]
+  }
+}

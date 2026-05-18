@@ -1,0 +1,60 @@
+{
+  "_meta": {
+    "protocol": "ucp",
+    "spec_version": "draft",
+    "wire_version": "2026-05-18",
+    "operation": "create_checkout",
+    "method": "POST",
+    "path": "/checkout-sessions",
+    "status": 201,
+    "service_contract": "https://ucp.dev/schemas/services/shopping/rest.openapi.json#/paths/~1checkout-sessions/post/responses/201",
+    "summary": "201 Created — authoritative checkout state after create",
+    "validates_against": "https://ucp.dev/schemas/shopping/checkout.json"
+  },
+  "headers": {
+    "Content-Type": "application/json",
+    "Signature": "sig1=:MEUCIQDExampleResponseSignatureBytes:",
+    "Signature-Input": "sig1=(\"@status\" \"content-digest\" \"request-id\");created=1747566001;keyid=\"merchant-ed25519-1\";alg=\"ed25519\"",
+    "Content-Digest": "sha-256=:RESPONSEBASE64DIGESTEXAMPLEVALUEAAAA=:"
+  },
+  "body": {
+    "ucp": {
+      "version": "2026-05-18",
+      "payment_handlers": {}
+    },
+    "id": "cs_ucp_abc123",
+    "status": "incomplete",
+    "currency": "USD",
+    "line_items": [
+      {
+        "id": "li_001",
+        "item": {
+          "id": "sku_blue_tshirt_m",
+          "title": "Blue T-Shirt (M)",
+          "price": 2500
+        },
+        "quantity": 2,
+        "totals": [
+          { "type": "subtotal", "amount": 5000, "display_text": "Subtotal" },
+          { "type": "total", "amount": 5000, "display_text": "Line total" }
+        ]
+      }
+    ],
+    "totals": [
+      { "type": "subtotal", "amount": 5000, "display_text": "Subtotal" },
+      { "type": "tax", "amount": 400, "display_text": "Tax (8%)" },
+      { "type": "fulfillment", "amount": 500, "display_text": "Standard Shipping" },
+      { "type": "total", "amount": 5900, "display_text": "Total" }
+    ],
+    "links": [
+      {
+        "type": "terms_of_service",
+        "url": "https://shop.example.com/legal/terms"
+      },
+      {
+        "type": "privacy_policy",
+        "url": "https://shop.example.com/legal/privacy"
+      }
+    ]
+  }
+}
