@@ -1,0 +1,16 @@
+{
+  "_meta": {
+    "protocol": "acp",
+    "spec_version": "2026-04-17",
+    "status": 400,
+    "summary": "400 — Idempotency-Key header required",
+    "source": "openapi.agentic_checkout.yaml responses/IdempotencyKeyRequired",
+    "validates_against": "schema.agentic_checkout.json#/$defs/Error"
+  },
+  "headers": { "Content-Type": "application/json" },
+  "body": {
+    "type": "invalid_request",
+    "code": "idempotency_key_required",
+    "message": "The Idempotency-Key header is required for this request"
+  }
+}

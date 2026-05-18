@@ -1,0 +1,38 @@
+{
+  "_meta": {
+    "protocol": "acp",
+    "spec_version": "2026-04-17",
+    "operation": "completeCheckoutSession",
+    "status": 200,
+    "summary": "200 OK — CheckoutSessionWithOrder (status: completed)",
+    "source": "agentic_checkout.json#/$defs/CheckoutSessionWithOrder (schema-aligned)",
+    "validates_against": "schema.agentic_checkout.json#/$defs/CheckoutSessionWithOrder"
+  },
+  "headers": {
+    "Idempotency-Key": "550e8400-e29b-41d4-a716-446655440003",
+    "Content-Type": "application/json"
+  },
+  "body": {
+    "id": "cs_abc123",
+    "status": "completed",
+    "currency": "usd",
+    "line_items": [],
+    "totals": [
+      { "type": "subtotal", "display_text": "Subtotal", "amount": 5800 },
+      { "type": "tax", "display_text": "Tax", "amount": 464 },
+      { "type": "fulfillment", "display_text": "Shipping", "amount": 500 },
+      { "type": "total", "display_text": "Total", "amount": 6764 }
+    ],
+    "fulfillment_options": [],
+    "messages": [],
+    "links": [],
+    "capabilities": {},
+    "order": {
+      "id": "ord_abc123",
+      "checkout_session_id": "cs_abc123",
+      "permalink_url": "https://shop.example.com/orders/ord_abc123",
+      "order_number": "12345",
+      "status": "confirmed"
+    }
+  }
+}

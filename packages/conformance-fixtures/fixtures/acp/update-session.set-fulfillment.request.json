@@ -1,0 +1,31 @@
+{
+  "_meta": {
+    "protocol": "acp",
+    "spec_version": "2026-04-17",
+    "operation": "updateCheckoutSession",
+    "method": "POST",
+    "path": "/checkout_sessions/{checkout_session_id}",
+    "summary": "Select a shipping fulfillment option",
+    "source": "agentic_checkout.json#/$defs/CheckoutSessionUpdateRequest (schema-aligned)",
+    "validates_against": "schema.agentic_checkout.json#/$defs/CheckoutSessionUpdateRequest",
+    "path_params": { "checkout_session_id": "cs_abc123" }
+  },
+  "headers": {
+    "Authorization": "Bearer api_key_123",
+    "Content-Type": "application/json",
+    "Accept-Language": "en-US",
+    "User-Agent": "ChatGPT/2.0 (Mac OS X 15.0.1; arm64; build 0)",
+    "Idempotency-Key": "550e8400-e29b-41d4-a716-446655440002",
+    "Request-Id": "request_id_126",
+    "API-Version": "2026-01-16"
+  },
+  "body": {
+    "selected_fulfillment_options": [
+      {
+        "type": "shipping",
+        "option_id": "fulfillment_option_456",
+        "item_ids": ["item_123"]
+      }
+    ]
+  }
+}

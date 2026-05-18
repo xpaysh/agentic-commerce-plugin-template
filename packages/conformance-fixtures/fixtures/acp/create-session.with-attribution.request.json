@@ -1,0 +1,33 @@
+{
+  "_meta": {
+    "protocol": "acp",
+    "spec_version": "2026-04-17",
+    "operation": "createCheckoutSession",
+    "method": "POST",
+    "path": "/checkout_sessions",
+    "summary": "Create with first-touch affiliate_attribution",
+    "source": "agentic_checkout.json#/$defs/CheckoutSessionCreateRequest (schema-aligned)",
+    "validates_against": "schema.agentic_checkout.json#/$defs/CheckoutSessionCreateRequest"
+  },
+  "headers": {
+    "Authorization": "Bearer api_key_123",
+    "Content-Type": "application/json",
+    "Accept-Language": "en-US",
+    "User-Agent": "ChatGPT/2.0 (Mac OS X 15.0.1; arm64; build 0)",
+    "Idempotency-Key": "550e8400-e29b-41d4-a716-446655440001",
+    "Request-Id": "request_id_125",
+    "API-Version": "2026-01-16"
+  },
+  "body": {
+    "line_items": [
+      { "id": "item_123" }
+    ],
+    "currency": "usd",
+    "capabilities": {},
+    "affiliate_attribution": {
+      "provider": "impact.com",
+      "token": "atp_01J8Z3WXYZ9ABC",
+      "publisher_id": "pub_123"
+    }
+  }
+}

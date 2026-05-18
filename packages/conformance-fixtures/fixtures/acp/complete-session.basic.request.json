@@ -1,0 +1,36 @@
+{
+  "_meta": {
+    "protocol": "acp",
+    "spec_version": "2026-04-17",
+    "operation": "completeCheckoutSession",
+    "method": "POST",
+    "path": "/checkout_sessions/{checkout_session_id}/complete",
+    "summary": "Complete with PaymentData (handler_id + card credential)",
+    "source": "agentic_checkout.json#/$defs/CheckoutSessionCompleteRequest (schema-aligned)",
+    "validates_against": "schema.agentic_checkout.json#/$defs/CheckoutSessionCompleteRequest",
+    "path_params": { "checkout_session_id": "cs_abc123" }
+  },
+  "headers": {
+    "Authorization": "Bearer api_key_123",
+    "Content-Type": "application/json",
+    "Accept-Language": "en-US",
+    "User-Agent": "ChatGPT/2.0 (Mac OS X 15.0.1; arm64; build 0)",
+    "Idempotency-Key": "550e8400-e29b-41d4-a716-446655440003",
+    "Request-Id": "request_id_127",
+    "API-Version": "2026-01-16"
+  },
+  "body": {
+    "buyer": {
+      "first_name": "John",
+      "last_name": "Smith",
+      "email": "johnsmith@mail.com"
+    },
+    "payment_data": {
+      "handler_id": "stripe",
+      "instrument": {
+        "type": "card",
+        "credential": { "type": "spt", "token": "spt_123" }
+      }
+    }
+  }
+}

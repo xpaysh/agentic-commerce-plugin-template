@@ -1,0 +1,17 @@
+{
+  "_meta": {
+    "protocol": "acp",
+    "spec_version": "2026-04-17",
+    "status": 400,
+    "summary": "400 — invalid buyer.email",
+    "source": "openapi.agentic_checkout.yaml Error example",
+    "validates_against": "schema.agentic_checkout.json#/$defs/Error"
+  },
+  "headers": { "Content-Type": "application/json" },
+  "body": {
+    "type": "invalid_request",
+    "code": "invalid_email",
+    "message": "The email address format is invalid",
+    "param": "$.buyer.email"
+  }
+}

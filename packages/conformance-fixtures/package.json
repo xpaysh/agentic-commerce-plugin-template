@@ -1,0 +1,51 @@
+{
+  "name": "@xpaysh/conformance-fixtures",
+  "version": "0.1.0",
+  "description": "Golden request/response payloads for ACP, UCP, and AP2. Sibling agentic-commerce-for-* plugins run these in CI to verify their adapter implementations conform to the protocols.",
+  "keywords": [
+    "agentic-commerce",
+    "conformance",
+    "fixtures",
+    "acp",
+    "ucp",
+    "ap2",
+    "test"
+  ],
+  "license": "Apache-2.0",
+  "author": "xpay✦ <hello@xpay.sh>",
+  "homepage": "https://github.com/xpaysh/agentic-commerce-plugin-template/tree/main/packages/conformance-fixtures#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xpaysh/agentic-commerce-plugin-template.git",
+    "directory": "packages/conformance-fixtures"
+  },
+  "bugs": {
+    "url": "https://github.com/xpaysh/agentic-commerce-plugin-template/issues"
+  },
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "scripts": {
+    "validate": "node scripts/validate-against-schemas.js"
+  },
+  "peerDependencies": {
+    "@xpaysh/acp-schemas": ">=0.1.0",
+    "ajv": ">=8"
+  },
+  "peerDependenciesMeta": {
+    "@xpaysh/acp-schemas": { "optional": true },
+    "ajv": { "optional": true }
+  },
+  "files": [
+    "src",
+    "fixtures",
+    "scripts",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
