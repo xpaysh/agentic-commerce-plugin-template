@@ -1,0 +1,41 @@
+{
+  "name": "@xpaysh/http-message-signatures",
+  "version": "0.1.0",
+  "description": "RFC 9421 HTTP Message Signatures — sign and verify Signature, Signature-Input, and Content-Digest headers. Targets the component set UCP and agentic-commerce REST contracts use (@method, @target-uri, content-digest, idempotency-key). Ed25519 primary; HMAC-SHA256 for testing. Zero deps; uses Node 18+ built-in crypto.",
+  "keywords": [
+    "agentic-commerce",
+    "ucp",
+    "rfc-9421",
+    "http-message-signatures",
+    "ed25519",
+    "content-digest",
+    "signature"
+  ],
+  "license": "Apache-2.0",
+  "author": "xpay✦ <hello@xpay.sh>",
+  "homepage": "https://github.com/xpaysh/agentic-commerce-plugin-template/tree/main/packages/http-message-signatures#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xpaysh/agentic-commerce-plugin-template.git",
+    "directory": "packages/http-message-signatures"
+  },
+  "bugs": {
+    "url": "https://github.com/xpaysh/agentic-commerce-plugin-template/issues"
+  },
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "scripts": {
+    "test": "node test/round-trip.test.js"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
