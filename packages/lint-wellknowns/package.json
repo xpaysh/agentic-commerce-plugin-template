@@ -1,0 +1,40 @@
+{
+  "name": "@xpaysh/lint-wellknowns",
+  "version": "0.1.0",
+  "description": "CI linter that fails the build when a plugin emits a fictitious well-known URI or agent-discovery file (no spec, no RFC, no IANA registration). Enforces the real-standards-only design principle of the agentic-commerce-for-* plugin family. Run `npx lint-wellknowns list` for the canonical deny-list and allow-list.",
+  "keywords": [
+    "agentic-commerce",
+    "well-known",
+    "discovery",
+    "lint",
+    "ci"
+  ],
+  "license": "Apache-2.0",
+  "author": "xpay✦ <hello@xpay.sh>",
+  "homepage": "https://github.com/xpaysh/agentic-commerce-plugin-template/tree/main/packages/lint-wellknowns#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xpaysh/agentic-commerce-plugin-template.git",
+    "directory": "packages/lint-wellknowns"
+  },
+  "bugs": {
+    "url": "https://github.com/xpaysh/agentic-commerce-plugin-template/issues"
+  },
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "bin": {
+    "lint-wellknowns": "./bin/lint-wellknowns.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

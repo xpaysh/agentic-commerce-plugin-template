@@ -1,0 +1,40 @@
+name: 'lint-wellknowns'
+description: |
+  Fail the build if a plugin emits a fictitious well-known URI or
+  agent-discovery file. Enforces the real-standards-only design
+  principle of the agentic-commerce-for-* plugin family.
+author: 'xpay✦'
+
+inputs:
+  target:
+    description: 'Directory to scan (relative to GITHUB_WORKSPACE).'
+    required: false
+    default: '.'
+  probe-url:
+    description: 'Optional live storefront URL to probe via HTTP after the static scan.'
+    required: false
+    default: ''
+  package-version:
+    description: 'Version of @xpaysh/lint-wellknowns to use. Pin in production.'
+    required: false
+    default: 'latest'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Static scan — fictitious well-known URIs
+      shell: bash
+      run: |
+        set -euo pipefail
+        npx --yes "@xpaysh/lint-wellknowns@${{ inputs.package-version }}" scan "${{ inputs.target }}" --github
+
+    - name: HTTP probe — fictitious well-known URIs
+      if: inputs.probe-url != ''
+      shell: bash
+      run: |
+        set -euo pipefail
+        npx --yes "@xpaysh/lint-wellknowns@${{ inputs.package-version }}" probe "${{ inputs.probe-url }}" --github
+
+branding:
+  icon: 'shield'
+  color: 'purple'
