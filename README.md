@@ -30,26 +30,26 @@ Each protocol's surface is *documented in the merchant's `/llms.txt`*, never adv
 ## What this template provides
 
 - **TypeScript core + per-platform adapter shape** — `core/` is platform-agnostic protocol/discovery logic; `adapter/` is the thin per-platform shim.
-- **Schema dependencies** — [`@xpaysh/acp-schemas`](https://www.npmjs.com/package/@xpaysh/acp-schemas), [`@xpaysh/ucp-schemas`](https://www.npmjs.com/package/@xpaysh/ucp-schemas) (ships `generateUcpProfile()` + `UCP_PROFILE_PATH`), [`@xpaysh/ap2-schemas`](https://www.npmjs.com/package/@xpaysh/ap2-schemas) (pinned by spec date).
+- **Schema dependencies** — [`@xpaysh/acp-schemas`](https://www.npmjs.com/package/@xpaysh/acp-schemas) (v0.1.0 — real JSON Schemas vendored from upstream `spec/2026-04-17/`; 7 bundles, 140 type defs), [`@xpaysh/ucp-schemas`](https://www.npmjs.com/package/@xpaysh/ucp-schemas) (ships `generateUcpProfile()` + `UCP_PROFILE_PATH`), [`@xpaysh/ap2-schemas`](https://www.npmjs.com/package/@xpaysh/ap2-schemas) (`SPEC_VERSION = 'draft'` while upstream is pre-stable).
 - **Discovery generators** — [`@xpaysh/discovery`](https://www.npmjs.com/package/@xpaysh/discovery) — pure-function generators for `/llms.txt`, schema.org JSON-LD (Product, ItemList), `robots.txt` AI-crawler allowlist, A2A `/.well-known/agent-card.json`, RFC 9728 `/.well-known/oauth-protected-resource`. Ported from `agentic-commerce-for-woocommerce` v0.2.0. Zero deps.
 - **Conformance audit** — [`@xpaysh/storefront-audit`](https://www.npmjs.com/package/@xpaysh/storefront-audit) — discovery-layer auditor + `ac-doctor` CLI. Verifies any storefront URL against the real-standards list, rejects fictitious well-known URIs, exits non-zero on fail. Every sibling plugin runs it in CI; merchants run it against their own store; commercial tier runs it daily and serves the result as a public badge.
 - **Cart deeplinks** — [`@xpaysh/cart-deeplinks`](https://www.npmjs.com/package/@xpaysh/cart-deeplinks) — HS256-signed JWT sign + verify for the cart-handoff URL pattern. Wire-compatible with the WooCommerce reference plugin's `Xpay_Client::verify_jwt`. Used by sibling plugins to accept tokens issued by the xpay backend (commercial mode) or by any in-family signer (standalone mode).
-- **CI linter — `lint-no-fictitious-wellknowns`** — fails the build if a plugin attempts to emit any file from the project-wide "do not emit" list (`/.well-known/agentic-commerce.json`, `/.well-known/ucp.json` *— the `.json` variant; `/.well-known/ucp` with no extension IS real and required by Google's UCP spec*, `/.well-known/acp.json`, `/.well-known/ap2.json`, `/.well-known/mcp.json`, `/.well-known/ai-plugin.json`, `/agents.txt`, `/ai.txt`). Catches fictitious-standard regression in PR review, not in production.
+- **CI linter** — [`@xpaysh/lint-wellknowns`](https://www.npmjs.com/package/@xpaysh/lint-wellknowns) — fails the build if a plugin source tree or live storefront emits any path from the project-wide deny-list. Ships a CLI (`lint-wellknowns scan|probe|list`) and a reusable GitHub composite action at `.github/actions/lint-wellknowns/`. The real `/.well-known/ucp` (no extension) is explicitly allow-listed; only the fictitious `.json` variant is flagged. Catches fictitious-standard regression in PR review, not in production.
+- **Conformance fixtures** — [`@xpaysh/conformance-fixtures`](https://www.npmjs.com/package/@xpaysh/conformance-fixtures) — golden ACP request/response payloads (`createCheckoutSession`, `updateCheckoutSession`, `completeCheckoutSession`, error envelopes) keyed by `_meta.validates_against`. Every fixture validates against `@xpaysh/acp-schemas` — run `npm run validate` in the package to verify the round-trip. UCP/AP2 placeholders land alongside their schema lifts.
 - **Two-mode operation** — standalone (no xpay backend) vs commercial (connect to xpay backend for catalog hosting + analytics).
-- **Conformance fixtures** — golden-test JSON payloads for ACP/UCP/AP2 round-trips, reused across platform plugins.
 
 ## Sibling plugins
 
 | Platform | Repo | Status |
 |---|---|---|
-| WooCommerce | [`agentic-commerce-for-woocommerce`](https://github.com/xpaysh/agentic-commerce-for-woocommerce) | Live (GPLv2, v0.1.7+) |
-| commercetools | [`agentic-commerce-for-commercetools`](https://github.com/xpaysh/agentic-commerce-for-commercetools) | Scaffolded |
-| BigCommerce | [`agentic-commerce-for-bigcommerce`](https://github.com/xpaysh/agentic-commerce-for-bigcommerce) | Scaffolded |
-| Magento / Adobe Commerce | [`agentic-commerce-for-magento`](https://github.com/xpaysh/agentic-commerce-for-magento) | Scaffolded |
-| Shopify (App Store) | [`agentic-commerce-for-shopify-app`](https://github.com/xpaysh/agentic-commerce-for-shopify-app) | Scaffolded |
-| Salesforce Commerce Cloud | [`agentic-commerce-for-salesforce-commerce`](https://github.com/xpaysh/agentic-commerce-for-salesforce-commerce) | Scaffolded |
-| PrestaShop | [`agentic-commerce-for-prestashop`](https://github.com/xpaysh/agentic-commerce-for-prestashop) | Scaffolded |
-| Saleor | [`agentic-commerce-for-saleor`](https://github.com/xpaysh/agentic-commerce-for-saleor) | Scaffolded |
+| WooCommerce | [`agentic-commerce-for-woocommerce`](https://github.com/xpaysh/agentic-commerce-for-woocommerce) | Live (GPLv2, v0.2.x) — PHP reference |
+| commercetools | [`agentic-commerce-for-commercetools`](https://github.com/xpaysh/agentic-commerce-for-commercetools) | Live (v0.2) — TS reference |
+| BigCommerce | [`agentic-commerce-for-bigcommerce`](https://github.com/xpaysh/agentic-commerce-for-bigcommerce) | Live (v0.1) |
+| Magento / Adobe Commerce | [`agentic-commerce-for-magento`](https://github.com/xpaysh/agentic-commerce-for-magento) | Live (v0.1) |
+| Shopify (App Store) | [`agentic-commerce-for-shopify-app`](https://github.com/xpaysh/agentic-commerce-for-shopify-app) | Live (v0.1) — Custom App token; App Store distribution in v0.2 |
+| Salesforce Commerce Cloud | [`agentic-commerce-for-salesforce-commerce`](https://github.com/xpaysh/agentic-commerce-for-salesforce-commerce) | Live (v0.1) |
+| PrestaShop | [`agentic-commerce-for-prestashop`](https://github.com/xpaysh/agentic-commerce-for-prestashop) | Live (v0.1) |
+| Saleor | [`agentic-commerce-for-saleor`](https://github.com/xpaysh/agentic-commerce-for-saleor) | Live (v0.1) |
 | OpenCart, Shopware, Spree, Sylius, nopCommerce, Drupal Commerce, Ecwid | Community (template + PR) | Planned |
 
 Curated index of every plugin (xpay-built + vendor-built + community): **[awesome-agentic-commerce](https://github.com/xpaysh/awesome-agentic-commerce)**.
@@ -61,7 +61,7 @@ Curated index of every plugin (xpay-built + vendor-built + community): **[awesom
 
 ## Status
 
-This repo is currently a scaffold. The reference implementation is being extracted from `agentic-commerce-for-woocommerce` (v0.1.7+); expect the first usable template release alongside `agentic-commerce-for-commercetools`.
+All 8 first-party platform plugins are live at v0.1 or later — every sibling is a thin adapter on top of the packages published from this monorepo (`@xpaysh/{acp,ucp,ap2}-schemas`, `@xpaysh/discovery`, `@xpaysh/adapter-contract`, `@xpaysh/cart-deeplinks`, `@xpaysh/storefront-audit`, `@xpaysh/conformance-fixtures`, `@xpaysh/lint-wellknowns`). v0.2 work across the family adds RFC 9421 signature verification, DDB-backed ACP session storage, and webhook subscriptions for order-state changes.
 
 ## License
 

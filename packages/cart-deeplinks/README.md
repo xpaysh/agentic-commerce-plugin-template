@@ -102,7 +102,7 @@ Tokens signed by this package are accepted by:
 
 - **`xpaysh/agentic-commerce-for-woocommerce` v0.2+** PHP plugin (`includes/class-xpay-cart.php` + `includes/class-xpay-client.php#verify_jwt`)
 - **`xpaysh/xpay-wc-plugin-backend`** Lambda (server-side issuance)
-- Any sibling [`agentic-commerce-for-*`](https://github.com/xpaysh?q=agentic-commerce-for-) plugin that imports this package (commercetools, BigCommerce, Magento, Shopify-app, Salesforce Commerce, PrestaShop, Saleor — once the plugins are in active development past scaffold)
+- Any sibling [`agentic-commerce-for-*`](https://github.com/xpaysh?q=agentic-commerce-for-) plugin that imports this package (commercetools, BigCommerce, Magento, Shopify-app, Salesforce Commerce, PrestaShop, Saleor — all live at v0.1+)
 
 Tokens this package verifies must have been signed by the same secret. The package does not silently allow other algorithms — `alg=HS256` is required.
 
