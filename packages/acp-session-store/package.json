@@ -1,0 +1,45 @@
+{
+  "name": "@xpaysh/acp-session-store",
+  "version": "0.1.0",
+  "description": "Storage backend for ACP checkout sessions, used by the agentic-commerce-for-* plugin family. Ships an InMemorySessionStore (default; suitable for single-instance dev) and a DynamoDBSessionStore (production; reads/writes the xpay-acp-sessions table with TTL-driven expiry). Both implement the same SessionStore interface so plugins swap them via env.",
+  "keywords": [
+    "agentic-commerce",
+    "acp",
+    "checkout-session",
+    "dynamodb",
+    "session-store"
+  ],
+  "license": "Apache-2.0",
+  "author": "xpay✦ <hello@xpay.sh>",
+  "homepage": "https://github.com/xpaysh/agentic-commerce-plugin-template/tree/main/packages/acp-session-store#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xpaysh/agentic-commerce-plugin-template.git",
+    "directory": "packages/acp-session-store"
+  },
+  "bugs": {
+    "url": "https://github.com/xpaysh/agentic-commerce-plugin-template/issues"
+  },
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "scripts": {
+    "test": "node test/in-memory.test.js"
+  },
+  "peerDependencies": {
+    "@aws-sdk/client-dynamodb": ">=3"
+  },
+  "peerDependenciesMeta": {
+    "@aws-sdk/client-dynamodb": { "optional": true }
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

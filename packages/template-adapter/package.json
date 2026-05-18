@@ -1,0 +1,35 @@
+{
+  "name": "@xpaysh/template-adapter",
+  "version": "0.1.0",
+  "description": "Reference PlatformAdapter implementation for an imaginary 'demo' eCommerce platform. Copy this directory to bootstrap a new agentic-commerce-for-<platform> plugin — every method is wired to a deterministic in-memory catalog so the sample boots and serves the protocol routes without any external credentials.",
+  "keywords": [
+    "agentic-commerce",
+    "platform-adapter",
+    "template",
+    "reference"
+  ],
+  "license": "Apache-2.0",
+  "author": "xpay✦ <hello@xpay.sh>",
+  "homepage": "https://github.com/xpaysh/agentic-commerce-plugin-template/tree/main/packages/template-adapter#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xpaysh/agentic-commerce-plugin-template.git",
+    "directory": "packages/template-adapter"
+  },
+  "bugs": {
+    "url": "https://github.com/xpaysh/agentic-commerce-plugin-template/issues"
+  },
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
