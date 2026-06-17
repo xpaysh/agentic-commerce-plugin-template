@@ -26,6 +26,29 @@ const AI_USER_AGENTS = [
 ];
 
 /**
+ * SHOPPING agents — user-triggered fetchers (and the search bot that powers
+ * shopping answers) that actually matter for agentic commerce. An explicit
+ * Disallow of any of these is the only robots.txt state that makes a store
+ * less agent-ready, so it's the only thing that fails this check.
+ */
+const SHOPPING_AGENTS = new Set([
+  'ChatGPT-User',
+  'Claude-User',
+  'Perplexity-User',
+  'OAI-SearchBot',
+]);
+
+/**
+ * Everything else in AI_USER_AGENTS is a training / indexing crawler
+ * (GPTBot, ClaudeBot, CCBot, Google-Extended, Applebot-Extended, Amazonbot,
+ * …). Blocking those is a legitimate training-opt-out choice by the merchant,
+ * NOT a commerce-readiness failure — we surface it as info only.
+ */
+function isShoppingAgent(ua) {
+  return SHOPPING_AGENTS.has(ua);
+}
+
+/**
  * Parse a robots.txt into ordered (user-agent, directives) groups. RFC 9309
  * is whitespace-tolerant; we lowercase keys.
  */
@@ -56,7 +79,8 @@ function parseRobotsTxt(text) {
 
 /**
  * For a given UA, find the most-specific matching group's Disallow rules.
- * Returns 'explicit-disallow', 'explicit-allow', or 'unaddressed'.
+ * Returns one of: 'explicit-disallow', 'explicit-allow', 'explicit-partial',
+ * 'wildcard-disallow', 'unaddressed'.
  */
 function uaPosture(groups, ua) {
   const lcUa = ua.toLowerCase();
@@ -83,75 +107,97 @@ function uaPosture(groups, ua) {
   return posture;
 }
 
+function isBlocked(posture) {
+  return posture === 'explicit-disallow' || posture === 'wildcard-disallow';
+}
+
 async function run(siteUrl, opts) {
   const target = resolveUrl(siteUrl, '/robots.txt');
   const resp = await httpGet(target, opts);
 
+  // Per RFC 9309 §2.4: absence of a robots.txt (or a non-2xx) means "no
+  // restrictions" — everything is allowed. That is the ideal state for agent
+  // discovery, so it PASSES (not a warn).
   if (!resp.ok) {
     return {
       id: ID,
-      name: 'robots.txt does not block AI crawlers',
+      name: 'robots.txt does not block AI shopping agents',
       spec: SPEC,
-      severity: 'warn',
-      status: 'warn',
-      message: 'No robots.txt served — agents are unrestricted by default, but explicit allow blocks are recommended',
+      severity: 'info',
+      status: 'pass',
+      message: 'No robots.txt served — agents are unrestricted by default (RFC 9309)',
       url: target,
+      details: { posture: {} },
     };
   }
 
   const groups = parseRobotsTxt(resp.body);
-  const blocked = [];
+
+  // posture: per-UA map (consumed by the v2 rubric signal-extractor to derive
+  // perAgentAllowed + the blocks-shopping-agents gate).
+  const posture = {};
+  const shoppingBlocked = [];
+  const trainingBlocked = [];
   const unaddressed = [];
   const allowed = [];
   for (const ua of AI_USER_AGENTS) {
-    const posture = uaPosture(groups, ua);
-    if (posture === 'explicit-disallow' || posture === 'wildcard-disallow') {
-      blocked.push({ ua, posture });
-    } else if (posture === 'unaddressed') {
+    const p = uaPosture(groups, ua);
+    posture[ua] = p;
+    if (isBlocked(p)) {
+      if (isShoppingAgent(ua)) shoppingBlocked.push(ua);
+      else trainingBlocked.push(ua);
+    } else if (p === 'unaddressed') {
       unaddressed.push(ua);
     } else {
       allowed.push(ua);
     }
   }
 
-  if (blocked.length > 0) {
+  // Only an explicit Disallow of a SHOPPING agent is a readiness failure.
+  if (shoppingBlocked.length > 0) {
     return {
       id: ID,
-      name: 'robots.txt does not block AI crawlers',
+      name: 'robots.txt does not block AI shopping agents',
       spec: SPEC,
       severity: 'fail',
       status: 'fail',
-      message: `robots.txt blocks ${blocked.length} AI user-agent(s): ` +
-               blocked.map(function (b) { return b.ua; }).join(', '),
+      message: `robots.txt blocks ${shoppingBlocked.length} AI shopping agent(s): ` +
+               shoppingBlocked.join(', '),
       url: target,
-      details: { blocked, unaddressed, allowed },
+      details: { posture, shoppingBlocked, trainingBlocked, unaddressed, allowed },
     };
   }
 
-  if (unaddressed.length > 0) {
+  // Training/indexing crawlers blocked but all shopping agents reachable:
+  // legitimate training-opt-out, NOT a readiness gap. Pass, surfaced as info.
+  if (trainingBlocked.length > 0) {
     return {
       id: ID,
-      name: 'robots.txt does not block AI crawlers',
+      name: 'robots.txt does not block AI shopping agents',
       spec: SPEC,
-      severity: 'warn',
-      status: 'warn',
-      message: `robots.txt does not explicitly allow ${unaddressed.length} AI user-agent(s) (they are not blocked, but explicit Allow blocks are recommended): ` +
-               unaddressed.join(', '),
+      severity: 'info',
+      status: 'pass',
+      message: `All AI shopping agents are reachable. ${trainingBlocked.length} training/indexing crawler(s) opted out (a legitimate merchant choice, not a readiness issue): ` +
+               trainingBlocked.join(', '),
       url: target,
-      details: { blocked, unaddressed, allowed },
+      details: { posture, shoppingBlocked, trainingBlocked, unaddressed, allowed },
     };
   }
 
+  // No AI agent is blocked. Per RFC 9309 "unaddressed" == allowed, so this is
+  // a pass whether or not the merchant added explicit Allow blocks.
   return {
     id: ID,
-    name: 'robots.txt does not block AI crawlers',
+    name: 'robots.txt does not block AI shopping agents',
     spec: SPEC,
-    severity: 'fail',
+    severity: 'info',
     status: 'pass',
-    message: `All ${AI_USER_AGENTS.length} AI user-agents explicitly allowed`,
+    message: unaddressed.length > 0
+      ? `No AI agent is blocked (${unaddressed.length} unaddressed = allowed by default per RFC 9309, ${allowed.length} explicitly allowed)`
+      : `All ${AI_USER_AGENTS.length} AI user-agents explicitly allowed`,
     url: target,
-    details: { allowed },
+    details: { posture, shoppingBlocked, trainingBlocked, unaddressed, allowed },
   };
 }
 
-module.exports = { id: ID, run, AI_USER_AGENTS };
+module.exports = { id: ID, run, AI_USER_AGENTS, SHOPPING_AGENTS };

@@ -79,20 +79,6 @@ async function run(siteUrl, opts) {
   const capabilityCount = Object.keys(ucp.capabilities).length;
   const serviceCount = Object.keys(ucp.services).length;
 
-  // Warn if signing keys are missing — required for RFC 9421-signed requests.
-  if (signingKeys.length === 0) {
-    return {
-      id: ID,
-      name: 'Has /.well-known/ucp (UCP business profile)',
-      spec: SPEC,
-      severity: 'fail',
-      status: 'warn',
-      message: `Profile served but signing_keys[] is empty — agents cannot verify RFC 9421 signatures`,
-      url: target,
-      details: { version: ucp.version, capabilityCount, serviceCount, signingKeyCount: 0 },
-    };
-  }
-
   // Detect xpay-hosted endpoint vs merchant-hosted.
   let hosted = 'merchant';
   for (const k of Object.keys(ucp.services)) {
@@ -104,6 +90,48 @@ async function run(siteUrl, opts) {
       }
     }
     if (hosted === 'xpay') break;
+  }
+
+  // Empty signing_keys[] is NOT a readiness gap on its own. RFC 9421 request
+  // signing is not yet enabled on xpay's hosted sidecars, so an empty array on
+  // an xpay-hosted profile is OUR unfinished feature, not the merchant's —
+  // don't drag the verdict for it. Only warn when a MERCHANT-hosted profile
+  // advertises a signing capability but ships no keys (a real merchant-side
+  // inconsistency). Otherwise the otherwise-valid profile passes (info).
+  if (signingKeys.length === 0) {
+    const caps = ucp.capabilities || {};
+    const advertisesSigning = !!(
+      caps.request_signing ||
+      caps['request-signing'] ||
+      caps.signing ||
+      (ucp.security && ucp.security.request_signing)
+    );
+    if (hosted === 'merchant' && advertisesSigning) {
+      return {
+        id: ID,
+        name: 'Has /.well-known/ucp (UCP business profile)',
+        spec: SPEC,
+        severity: 'warn',
+        status: 'warn',
+        message: 'Profile advertises request signing but signing_keys[] is empty — agents cannot verify RFC 9421 signatures',
+        url: target,
+        details: { version: ucp.version, capabilityCount, serviceCount, signingKeyCount: 0, hosted },
+      };
+    }
+    return {
+      id: ID,
+      name: 'Has /.well-known/ucp (UCP business profile)',
+      spec: SPEC,
+      severity: 'info',
+      status: 'pass',
+      message: `Profile served (v${ucp.version}, ${capabilityCount} capabilities) — signature verification not yet enabled`,
+      url: target,
+      // Carry the full capabilities[] array + raw services payload so the v2
+      // signal extractor can count capabilities and detect an MCP-transport
+      // service. Omitting them (older code only sent capabilityCount) made
+      // every xpay-hosted, signing-off profile read as 0 capabilities / no MCP.
+      details: { version: ucp.version, capabilities: Object.keys(ucp.capabilities), capabilityCount, serviceCount, services: ucp.services, signingKeyCount: 0, hosted },
+    };
   }
 
   return {
@@ -118,6 +146,7 @@ async function run(siteUrl, opts) {
       version: ucp.version,
       capabilities: Object.keys(ucp.capabilities),
       serviceCount,
+      services: ucp.services,
       signingKeyCount: signingKeys.length,
       hosted,
     },
